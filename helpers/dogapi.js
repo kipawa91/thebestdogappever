@@ -1,14 +1,30 @@
 import urlJoin from 'url-join';
+import useSWR from 'swr';
 
 const APIROOT = 'https://dog.ceo/api/';
 
-export async function getAllBreeds() {
+const fetcher = (...args) => fetch(...args).then(res => res.json()).then(json => json.message);
+
+export function getAllBreeds() {
 
     const end = urlJoin(APIROOT, '/breeds/list/all');
+    const { data, error, isLoading } = useSWR(end, fetcher);
+ 
+    return {
+        breeds: data,
+        isLoading: isLoading,
+        isError: error
+    }
+}
 
-    const breeds = fetch(end)
-        .then(res => res.json())
-        .then(json => Object.keys(json.message));
+export function useBreedImageURI(breed) {
 
-    return breeds;
+    const end = urlJoin(APIROOT, '/breed/', breed,'/images/random');
+    const { data, error, isLoading } = useSWR(end, fetcher);
+ 
+    return {
+        imageURI: data,
+        isLoading: isLoading,
+        isError: error
+    }
 }
