@@ -1,6 +1,8 @@
 import Head from 'next/head'
+import BreedsView from '@/components/BreedsView';
 
 export default function Home() {
+
   return (
     <>
       <Head>
@@ -8,8 +10,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='container text-center'>
-        <h1 className='display-1'>The Best Dog App Ever</h1>
+      <header>
+        <h1 className='display-1 text-center'>The Best Dog App Ever</h1>
+      </header>
+      <main>
+          <BreedsView />
       </main>
     </>
-)}
+  );
+};
