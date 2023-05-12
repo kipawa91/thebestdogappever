@@ -13,7 +13,7 @@ export default function Home() {
       <header>
         <h1 className='display-1 text-center'>The Best Dog App Ever</h1>
       </header>
-      <main>
+      <main className='container'>
           <BreedsView />
       </main>
     </>
