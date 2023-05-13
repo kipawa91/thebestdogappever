@@ -1,5 +1,6 @@
 import DogsView from '@/components/DogsView';
 import Layout from '../../components/Layout';
+import NavBar from '../../components/NavBar';
 import { getAllBreeds, getAllBreedImageURIs } from '@/helpers/dogapi';
 
 export async function getStaticPaths() {
@@ -35,7 +36,7 @@ export default function Breed({ breed, images }) {
     return (
       <Layout>
         <main className='container'>
-            <h2 className='text-capitalize text-center'>{ breed }</h2>
+            <NavBar breed={breed} />
             <DogsView imageURIs={images} />
         </main>
       </Layout>
