@@ -1,6 +1,6 @@
-import Head from 'next/head'
+import DogsView from '@/components/DogsView';
 import Layout from '../../components/Layout';
-import { getAllBreeds } from '@/helpers/dogapi';
+import { getAllBreeds, getAllBreedImageURIs } from '@/helpers/dogapi';
 
 export async function getStaticPaths() {
 
@@ -21,20 +21,23 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const breed = params.breed;
+  const images = await getAllBreedImageURIs(breed);
   return {
     props: {
       breed,
+      images,
     },
   };
 }
 
-export default function Breed({ breed }) {
+export default function Breed({ breed, images }) {
 
     return (
       <Layout>
         <main className='container'>
-            { breed }
+            <h2 className='text-capitalize text-center'>{ breed }</h2>
+            <DogsView imageURIs={images} />
         </main>
       </Layout>
     );
-  };
+}
