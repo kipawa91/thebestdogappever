@@ -9,9 +9,15 @@ const APIENDS = {
 
 const fetcher = (...args) => fetch(...args).then(res => res.json()).then(json => json.message);
 
+const OPTION_NO_REVALIDATION = {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+}
+
 export const getAllBreeds = () => fetcher(APIENDS.getAllBreeds).then(data => Object.keys(data));
 export function useAllBreeds() {
-    const { data, error, isLoading } = useSWR(APIENDS.getAllBreeds, getAllBreeds);
+    const { data, error, isLoading } = useSWR(APIENDS.getAllBreeds, getAllBreeds, OPTION_NO_REVALIDATION);
     return {
         breeds: data,
         isLoading: isLoading,
@@ -21,7 +27,7 @@ export function useAllBreeds() {
 
 export const getBreedImageURI = (breed) => fetcher(APIENDS.getBreedImageURI(breed));
 export function useBreedImageURI(breed) {
-    const { data, error, isLoading } = useSWR(APIENDS.getBreedImageURI(breed), () => getBreedImageURI(breed));
+    const { data, error, isLoading } = useSWR(APIENDS.getBreedImageURI(breed), () => getBreedImageURI(breed), OPTION_NO_REVALIDATION);
     return {
         imageURI: data,
         isLoading: isLoading,
